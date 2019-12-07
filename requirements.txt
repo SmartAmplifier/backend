@@ -1,0 +1,6 @@
+Flask
+firebase
+requests_toolbelt
+sseclient
+gcloud
+python_jwt
