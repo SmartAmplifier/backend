@@ -6,4 +6,4 @@ before_install:
 language: python
 python:
   - "3.6"
-script: ls
+script: python3 test.py
