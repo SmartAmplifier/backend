@@ -5,4 +5,4 @@ requests_toolbelt
 sseclient
 gcloud
 python_jwt
-Crypto
+pycrypto
