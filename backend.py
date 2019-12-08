@@ -103,6 +103,13 @@ def main(hostname=None, port=None):
         if volume:
             return {"volume": volume}, 200
 
+    @app.route('/is/registred/<id>', methods=['GET'])
+    def is_registred(id):
+        if firebase_db.child('amplifiers').child(id).get().val():
+            return 'Registred!', 200
+
+        return 'Not registred :(', 400
+
     app.run(hostname, port)
 
 
