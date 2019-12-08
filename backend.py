@@ -26,7 +26,10 @@ def main(hostname=None, port=None):
     def paired_amplifier(email):
         value = firebase_db.child('users').child(str(email).split(
             '@')[0]).child('paired').get()
-        return value.val()
+        if value:
+            return value, 200
+
+        return {"amplifier": None}, 400
 
     @app.route('/pair/new/amplifier', methods=['POST'])
     def paired_new_amplifier():
@@ -86,7 +89,7 @@ def main(hostname=None, port=None):
         if volume:
             return {"volume": volume}, 200
 
-        return 'Error', 400
+        return {"error": "no such id"}, 400
 
     @app.route('/get/volume/by/email/<email>', methods=['GET'])
     def get_volume_by_email(email):
@@ -101,14 +104,14 @@ def main(hostname=None, port=None):
             amplifier).child('volume').get().val()
 
         if volume:
-            return {"volume": volume}, 200
+            return {"volume": volume}, 400
 
     @app.route('/is/registred/<id>', methods=['GET'])
     def is_registred(id):
         if firebase_db.child('amplifiers').child(id).get().val():
-            return 'Registred!', 200
+            return {"registred": True}, 200
 
-        return 'Not registred :(', 400
+        return {"registred": False}, 400
 
     app.run(hostname, port)
 
