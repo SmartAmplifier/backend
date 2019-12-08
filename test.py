@@ -4,6 +4,8 @@
 import sys
 import logging
 import random
+import subprocess
+import time
 import requests
 
 
@@ -12,6 +14,12 @@ def main():
     logging.basicConfig(
         format='%(asctime)s %(levelname)s: %(message)s', datefmt='%d-%b-%y %H:%M:%S')
     logging.root.setLevel(logging.NOTSET)
+
+    # Run backend
+    logging.info('Starting backend')
+    subprocess.Popen(['python3', 'backend.py', '-h',
+                      'localhost', '-p', '8080'])
+    time.sleep(2)
 
     # Generate random TESTER-<INT> amplifier
     tested_amplifier = 'TESTER-' + str(random.randint(111111, 999999))
