@@ -1,6 +1,6 @@
 click
 Flask
-firebase
+Pyrebase
 requests_toolbelt
 sseclient
 gcloud
