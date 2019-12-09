@@ -3,6 +3,7 @@ import click
 from flask import Flask
 from flask import request
 from flask import make_response
+from flask_cors import CORS
 import requests
 import firebase
 
@@ -20,6 +21,7 @@ def main(hostname=None, port=None):
     firebase_db = firebase.Firebase(config)
 
     app = Flask(__name__)
+    CORS(app)
 
     @app.route('/get/paired/amplifier/<email>', methods=['GET'])
     def paired_amplifier(email):
