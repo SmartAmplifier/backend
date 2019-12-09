@@ -76,7 +76,6 @@ class Firebase:
         except Exception:
             return {'Error': 'Error while changing volume'}, 400
 
-# TODO: Add if device is registred
     def get_volume_by_id(self, id):
         try:
             volume = self._db.child('amplifiers').child(id).child('volume').get().val()
