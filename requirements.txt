@@ -6,3 +6,4 @@ sseclient
 gcloud
 python_jwt
 pycrypto
+Flask-Cors
