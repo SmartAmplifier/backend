@@ -26,11 +26,11 @@ def main():
 
     # Try to pair generated amplifier before it is registred
     logging.info(
-        'Try to pair virtual amplifier to account tester@email.xx')
+        'Try to pair virtual amplifier to account tester@email.xx before creating. Expecting code 400')
     pair_new_amplifier = requests.post('http://127.0.0.1:8080/pair/new/amplifier',
                                        {"email": "tester@email.xx", "amplifier":
                                         tested_amplifier})
-    if pair_new_amplifier.status_code != 200:
+    if pair_new_amplifier.status_code == 400:
         logging.info('Status code not 200 in pairing new amplifier. Code: {}'.format(
             pair_new_amplifier.status_code))
 
@@ -42,14 +42,14 @@ def main():
     logging.info('Register virtual amplifier')
     register_new_amplifier = requests.post('http://127.0.0.1:8080/register/new/amplifier',
                                            {"amplifier": tested_amplifier})
-    logging.info('Virtual amplifier successfully created')
     if register_new_amplifier.status_code != 200:
         logging.critical('Register failed')
         sys.exit(1)
+    logging.info('Virtual amplifier successfully created')
 
     # Try to pair register generated virtual amplifier
     logging.info(
-        'Try to pair virtual amplifier again after it is registered to account tester@email.xx')
+        'Try to pair virtual amplifier again after it is registered to account tester@email.xx. Expexting code 200 and success in body')
     pair_new_amplifier = requests.post('http://127.0.0.1:8080/pair/new/amplifier',
                                        {"email": "tester@email.xx", "amplifier":
                                         tested_amplifier})
@@ -81,7 +81,7 @@ def main():
     volume = requests.get(
         'http://127.0.0.1:8080/get/volume/by/id/{}'.format(tested_amplifier)).json()['volume']
 
-    if volume == str(40):
+    if volume == 40:
         logging.info('Change succesfull successfull')
 
     else:
@@ -99,7 +99,7 @@ def main():
     volume = requests.get(
         'http://127.0.0.1:8080/get/volume/by/email/tester@email.xx').json()['volume']
 
-    if volume == str(80):
+    if volume == 80:
         logging.info('Change succesfull successfull')
 
     else:
